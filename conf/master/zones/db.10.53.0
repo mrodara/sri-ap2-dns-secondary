@@ -1,0 +1,10 @@
+$TTL 3600
+@   IN  SOA ns1.aulasri.test. admin.aulasri.test. (
+        2026101901 3600 900 604800 300 )
+@   IN NS  ns1.aulasri.test.
+@   IN NS  ns2.aulasri.test.
+100 IN PTR ns1.aulasri.test.
+200 IN PTR ns2.aulasri.test.
+20  IN PTR cliente.aulasri.test.
+30  IN PTR www.aulasri.test.
+40  IN PTR mail.aulasri.test.

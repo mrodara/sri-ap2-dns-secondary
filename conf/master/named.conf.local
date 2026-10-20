@@ -1,0 +1,15 @@
+zone "aulasri.test" {
+    type master;
+    file "/etc/bind/zones/db.aulasri.test";
+    allow-transfer { 10.53.0.200; };
+    notify explicit;
+    also-notify { 10.53.0.200; };
+};
+
+zone "0.53.10.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zones/db.10.53.0";
+    allow-transfer { 10.53.0.200; };
+    notify explicit;
+    also-notify { 10.53.0.200; };
+};

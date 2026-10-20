@@ -1,0 +1,15 @@
+zone "aulasri.test" {
+    type slave;
+    masters { 10.53.0.100; };
+    file "/var/lib/bind/slave/db.aulasri.test";
+    allow-transfer { none; };
+    allow-notify { 10.53.0.100; };
+};
+
+zone "0.53.10.in-addr.arpa" {
+    type slave;
+    masters { 10.53.0.100; };
+    file "/var/lib/bind/slave/db.10.53.0";
+    allow-transfer { none; };
+    allow-notify { 10.53.0.100; };
+};

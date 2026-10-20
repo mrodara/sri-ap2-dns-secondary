@@ -1,0 +1,50 @@
+services:
+  primary:
+    build: ./server
+    container_name: dns-primary
+    hostname: ns1
+    volumes:
+      - ./conf/master/named.conf.options:/etc/bind/named.conf.options:ro
+      - ./conf/master/named.conf.local:/etc/bind/named.conf.local:ro
+      - ./conf/master/zones:/etc/bind/zones:ro
+    networks:
+      dns-lab:
+        ipv4_address: 10.53.0.100
+  
+  secondary:
+    build: ./server
+    container_name: dns-secondary
+    hostname: ns2
+    volumes:
+      - ./conf/slave/named.conf.options:/etc/bind/named.conf.options:ro
+      - ./conf/slave/named.conf.local:/etc/bind/named.conf.local:ro
+      - secondary_zones:/var/lib/bind/slave:rw
+    networks:
+      dns-lab:
+        ipv4_address: 10.53.0.200
+  
+  client:
+    build: ./client
+    container_name: dns-client
+    hostname: client
+    dns:
+      - 10.53.0.100
+      - 10.53.0.200
+    depends_on:
+      - primary
+      - secondary
+    networks:
+      dns-lab:
+        ipv4_address: 10.53.0.20
+
+networks:
+  dns-lab:
+    name: dns-lab
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.53.0.0/24
+          gateway: 10.53.0.1
+
+volumes:
+  secondary_zones:
